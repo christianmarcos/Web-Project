@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BSIS Program</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #ffffffde;
+      background: url('https://media.giphy.com/media/xTiTnpHIV4fekdzqXY/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+    }
+    body {
+  background: linear-gradient(-45deg, #1e1e2f, #3a3a5c, #ababbe, #2e2e40);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+    /* Intro Screen */
+    .intro {
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #ffffff9a;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .intro p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .intro button {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #ffffff9f;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .intro button:hover {
+      background-color: #ccc;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 250px;
+      position: fixed;
+      top: 100px;
+      left: -250px;
+      bottom: 0;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar.show {
+      transform: translateX(250px);
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul li a {
+      color: #ffffff91;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .sidebar ul li a.active {
+      color: #ffbf009a; /* Highlight active link */
+      font-weight: bold;
+    }
+
+    /* Main content styles */
+    main {
+      margin-left: 270px;
+      margin-top: 100px;
+      padding: 20px;
+      flex-grow: 1;
+      display: none; /* Hide content initially */
+    }
+
+    section {
+      background-color: rgba(0, 0, 0, 0.7);
+      margin: 20px 0;
+      padding: 30px;
+      border-radius: 15px;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+      display: none; /* Hide sections initially */
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+      display: block; /* Show the active section */
+    }
+
+    footer {
+  background-color: rgba(0, 0, 0, 0.9);
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+
+    /* Animation keyframes */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px;
+      }
+
+      .sidebar {
+        position: absolute;
+        top: 80px;
+        left: -200px;
+        width: 200px;
+        height: 100%;
+        padding: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 120px;
+      }
+
+      .sidebar ul li {
+        font-size: 1rem;
+      }
+
+      .intro button {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Toggle button for sidebar */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      font-size: 1.5rem;
+      background-color: #ffffff9c;
+      color: #000;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Intro Screen -->
+  <section class="intro" id="intro">
+    <div>
+      <h1>Welcome to the BSIS Program</h1>
+      <p>Transform your career with the power of Information Systems. Learn, grow, and innovate with the BSIS program.</p>
+      <button onclick="startWebsite()">Start</button>
+    </div>
+  </section>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="#about" onclick="showSection('about', this)">About BSIS</a></li>
+      <li><a href="#curriculum" onclick="showSection('curriculum', this)">Curriculum</a></li>
+      <li><a href="#tuition" onclick="showSection('tuition', this)">Tuition Fees</a></li>
+      <li><a href="#facilities" onclick="showSection('facilities', this)">Facilities</a></li>
+      <li><a href="#contact" onclick="showSection('contact', this)">Contact Us</a></li>
+    </ul>
+  </aside>
+
+  <!-- Toggle Button for Sidebar (Mobile) -->
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <section id="about">
+      <h2>About BSIS</h2>
+      <p>The Bachelor of Science in Information Systems (BSIS) is a 4-year program blending business and IT. It trains students to solve business problems using technology, preparing them for careers in systems analysis, IT management, and digital transformation.</p>
+    </section>
+
+    <section id="curriculum">
+      <h2>Curriculum Highlights</h2>
+      <ul>
+        <li>Information Systems Analysis and Design</li>
+        <li>Web and Mobile App Development</li>
+        <li>Database Management</li>
+        <li>Business Process Management</li>
+        <li>Enterprise Systems</li>
+        <li>IT Project Management</li>
+        <li>Capstone Project and Internship</li>
+      </ul>
+    </section>
+
+    <section id="tuition">
+      <h2>Tuition Fees</h2>
+      <p>Average tuition ranges from <strong>₱20,000 to ₱40,000</strong> per semester depending on the school. State universities may offer free tuition under CHED or government scholarships.</p>
+    </section>
+
+    <section id="facilities">
+      <h2>Facilities</h2>
+      <ul>
+        <li>Modern Computer Laboratories</li>
+        <li>High-Speed Wi-Fi</li>
+        <li>Digital Library Access</li>
+        <li>Innovation and IT Hubs</li>
+        <li>Industry-Experienced Faculty</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: info@bsisprogram.edu.ph</p>
+      <p>Phone: (02) 1234-5678</p>
+      <p>Facebook: facebook.com/bsisprogram</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 BSIS Program. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Function to hide intro and show the main website content
+    function startWebsite() {
+      document.getElementById('intro').style.display = 'none'; // Hide intro screen
+      document.getElementById('sidebar').classList.add('show'); // Show sidebar
+      document.getElementById('main-content').style.display = 'block'; // Show main content
+    }
+
+    // Function to toggle the sidebar in mobile view
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('show');
+    }
+
+    // Function to show the selected section and highlight the active link
+    function showSection(sectionId, link) {
+      // Hide all sections
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('visible');
+      });
+
+      // Show the selected section
+      document.getElementById(sectionId).classList.add('visible');
+
+      // Remove active class from all sidebar links
+      document.querySelectorAll('.sidebar ul li a').forEach(a => {
+        a.classList.remove('active');
+      });
+
+      // Add active class to the clicked link
+      link.classList.add('active');
+    }
+  </script>
+</body>
+</html>
